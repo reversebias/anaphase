@@ -28,6 +28,6 @@ config ZMK_BATTERY_NRF_VDDH
     default y
 
 config SSD1306
-	default y
+    default y
 
 endif # BOARD_NUMBLE
