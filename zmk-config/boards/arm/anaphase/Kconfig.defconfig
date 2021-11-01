@@ -27,4 +27,7 @@ config ZMK_USB
 config ZMK_BATTERY_NRF_VDDH
     default y
 
+config SSD1306
+	default y
+
 endif # BOARD_NUMBLE

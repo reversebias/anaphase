@@ -3,10 +3,6 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// Key code aliases (for better keymap alignment)
-#define KP_DIV KP_DIVIDE
-#define KP_MULT KP_MULTIPLY
-
 // Layers
 #define DEFAULT 0
 
@@ -19,22 +15,6 @@
                 &kp SPC
             >;
 
-            // Uncomment to enable the encoder.
-            // sensor-bindings = <
-            //     &inc_dec_kp C_VOL_UP C_VOL_DN
-            // >;
         };
     };
-
-    // Uncomment to enable the encoder.
-    // sensors {
-    //     compatible = "zmk,keymap-sensors";
-    //     sensors = <&encoder>;
-    // };
 };
-
-// Uncomment to enable the encoder.
-// &encoder {
-//     status = "okay";
-// };
-
