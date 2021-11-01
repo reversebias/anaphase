@@ -27,7 +27,23 @@ config ZMK_USB
 config ZMK_BATTERY_NRF_VDDH
     default y
 
+config ZMK_DISPLAY
+	select LVGL_USE_CONT
+	select LVGL_FONT_MONTSERRAT_26
+
+choice ZMK_DISPLAY_STATUS_SCREEN
+	default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+
+endchoice
+
+if ZMK_DISPLAY
+
+config SPI
+	default y
+
 config SSD1306
     default y
 
-endif # BOARD_NUMBLE
+endif # ZMK_DISPLAY
+
+endif # BOARD_ANAPHASE
