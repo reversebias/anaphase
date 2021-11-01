@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: MIT
 
-if BOARD_ANAPHASE
+if BOARD_NUMBLE
 
 config ZMK_KEYBOARD_NAME
-    default "anaphase"
+    default "NumBLE"
 
 if USB
 
@@ -27,4 +27,4 @@ config ZMK_USB
 config ZMK_BATTERY_NRF_VDDH
     default y
 
-endif # BOARD_ANAPHASE
+endif # BOARD_NUMBLE

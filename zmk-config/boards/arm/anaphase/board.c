@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021
+ * Copyright (c) 2021 Joel Spadin
  *
  * SPDX-License-Identifier: MIT
  */
@@ -8,7 +8,7 @@
 #include <init.h>
 #include <hal/nrf_power.h>
 
-static int board_anaphase_init(const struct device *dev)
+static int board_numble_init(const struct device *dev)
 {
     ARG_UNUSED(dev);
 
@@ -23,4 +23,4 @@ static int board_anaphase_init(const struct device *dev)
     return 0;
 }
 
-SYS_INIT(board_anaphase_init, PRE_KERNEL_1, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);
+SYS_INIT(board_numble_init, PRE_KERNEL_1, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);
