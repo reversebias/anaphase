@@ -50,17 +50,17 @@
         compatible = "solomon,ssd1306fb";
         reg = <0>;
         label = "DISPLAY";
-        data_cmd-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
+        data_cmd-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
         reset-gpios = <&gpio0 12 GPIO_ACTIVE_LOW>;
         spi-max-frequency = <1000000>;
-        width = <64>;
+        width = <96>;
         height = <48>;
         segment-offset = <0>;
         page-offset = <0>;
         display-offset = <0>;
-        multiplex-ratio = <31>;
-        com-sequential;
+        multiplex-ratio = <47>;
         prechargep = <0x22>;
+        //com-invdir;
     };
 };
 

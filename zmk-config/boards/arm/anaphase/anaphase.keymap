@@ -12,7 +12,7 @@
 
         default_layer {
             bindings = <
-                &kp SPC
+                &kp ESC
             >;
 
         };
