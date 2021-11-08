@@ -24,4 +24,3 @@ CONFIG_FLASH_MAP=y
 # nRF52840 can handle faster USB polling
 CONFIG_USB_HID_POLL_INTERVAL_MS=1
 
-# OLED flags
