@@ -37,6 +37,9 @@ config SPI
 config SSD1306
     default y
 
+config SSD1306_REVERSE_MODE
+    default y
+
 config LVGL_HOR_RES_MAX
     default 96
 
@@ -47,7 +50,7 @@ config LVGL_VDB_SIZE
     default 100
 
 config LVGL_DPI
-    default 148
+    default 50
 
 config LVGL_BITS_PER_PIXEL
     default 1
