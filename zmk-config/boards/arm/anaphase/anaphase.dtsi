@@ -17,16 +17,20 @@
         zephyr,sram = &sram0;
         zephyr,flash = &flash0;
         zmk,kscan = &kscan0;
+        zmk,matrix_transform = &transform;
         zmk,battery = &vbatt;
     };
-
-    kscan0: kscan {
-        compatible = "zmk,kscan-gpio-direct";
-        label = "KSCAN";
-
-        input-gpios
-            = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            ;
+#define K(n) RC(0,n)
+    transform: transform {
+        compatible = "zmk,matrix-transform";
+        columns = <12>;
+        rows = <4>;
+        map = <
+            K(0)  K(1)  K(2)  K(3)  K(4)  K(5)    K(26) K(25) K(24) K(23) K(22) K(21)
+            K(6)  K(7)  K(8)  K(9)  K(10) K(11)   K(32) K(31) K(30) K(29) K(28) K(27)
+            K(12) K(13) K(14) K(15) K(16) K(17)   K(38) K(37) K(36) K(35) K(34) K(33)
+                              K(18) K(19) K(20)   K(41) K(40) K(39)
+        >;
     };
 
     vbatt: vbatt {

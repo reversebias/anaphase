@@ -1,9 +1,26 @@
 # SPDX-License-Identifier: MIT
 
-if BOARD_ANAPHASE
+if BOARD_ANAPHASE_LEFT
 
 config ZMK_KEYBOARD_NAME
     default "anaphase"
+
+endif # BOARD_ANAPHASE_LEFT
+
+if BOARD_ANAPHASE_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "anaphase rt"
+
+endif # BOARD_ANAPHASE_RIGHT
+
+if BOARD_ANAPHASE_LEFT || BOARD_ANAPHASE_RIGHT
+
+config BOARD
+    default "anaphase"
+
+config ZMK_SPLIT
+	default y
 
 if USB
 
@@ -62,4 +79,4 @@ endchoice
 
 endif # ZMK_DISPLAY
 
-endif # BOARD_ANAPHASE
+endif # BOARD_ANAPHASE_LEFT || BOARD_ANAPHASE_RIGHT
