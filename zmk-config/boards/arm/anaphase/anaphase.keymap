@@ -4,20 +4,73 @@
 #include <dt-bindings/zmk/outputs.h>
 
 // Layers
-#define DEFAULT 0
+#define BASE 0
+#define SHIFT 1
+#define FUNC 2
+#define FNSHFT 3
+#define SYS 4
 
 / {
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        BASE {
             bindings = <
-&kp A &kp D &kp G &kp J &kp M &kp P &kp S &kp V &kp Y &kp N1 &kp N4 &kp N7 
-&kp B &kp E &kp H &kp K &kp N &kp Q &kp T &kp W &kp Z &kp N2 &kp N5 &kp N8 
-&kp C &kp F &kp I &kp L &kp O &kp R &kp U &kp X &kp N0 &kp N3 &kp N6 &kp N9 
-                  &kp SPACE &kp RET &kp COMMA &kp DOT &kp FSLH &kp BSLH  
+//  1         2         3       4        5     6        7         8         9         10      11    12                   
+&kp ESC   &kp Q     &kp P   &kp Y    &kp C &kp B    &kp V     &kp M     &kp U     &kp Z   &kp L  &kp DEL 
+&kp LCTRL &kp A     &kp N   &kp I    &kp S &kp F    &kp D     &kp T     &kp H     &kp O   &kp R  &kp TAB
+&kp LALT  &kp COMMA &kp DOT &kp J    &kp G &kp FSLH &kp SEMI  &kp W     &kp K     &kp SQT &kp X  &kp LGUI
+                            &kp BSPC &kp E &mo FUNC &mo SHIFT &kp SPACE &kp ENTER  
             >;
 
         };
+
+        SHIFT {
+            bindings = <
+// 1         2             3           4            5         6            7            8             9             10          11         12                   
+&none &kp LS(Q)     &kp LS(P)   &kp LS(Y)    &kp LS(C) &kp LS(B)    &kp LS(V)    &kp LS(M)     &kp LS(U)     &kp LS(Z)   &kp LS(L)  &kp LS(DEL) 
+&none &kp LS(A)     &kp LS(N)   &kp LS(I)    &kp LS(S) &kp LS(F)    &kp LS(D)    &kp LS(T)     &kp LS(H)     &kp LS(O)   &kp LS(R)  &kp LS(TAB)
+&none &kp LS(COMMA) &kp LS(DOT) &kp LS(J)    &kp LS(G) &kp LS(FSLH) &kp LS(SEMI) &kp LS(W)     &kp LS(K)     &kp LS(SQT) &kp LS(X)  &kp LS(LGUI)
+                                &kp LS(BSPC) &kp LS(E) &mo FNSHFT   &none        &kp LS(SPACE) &kp LS(ENTER)  
+            >;
+
+        };
+
+        FUNC {
+            bindings = <
+//  1         2        3         4        5         6        7          8      9      10     11        12                   
+&kp TILDE &kp AMPS &kp PRCNT &kp UP   &kp CARET &kp PIPE &kp LBKT   &kp N7 &kp N8 &kp N9 &kp MINUS &kp PG_UP 
+&none     &kp AT   &kp LEFT  &kp DOWN &kp RIGHT &kp HASH &kp LPAR   &kp N4 &kp N5 &kp N6 &kp DOT   &kp PG_DN
+&none     &kp STAR &kp UNDER &kp EXCL &kp DLLR  &kp BSLH &kp LBRC   &kp N1 &kp N2 &kp N3 &kp PLUS  &none
+                             &none    &mo SYS   &none    &mo FNSHFT &kp N0 &kp EQUAL  
+            >;
+
+        };
+
+        FNSHFT {
+            bindings = <
+//  1     2         3             4            5         6         7        8      9      10     11      12                   
+&kp GRAVE &none &kp PSCRN     &kp LS(UP)   &none         &none &kp RBKT &kp F7 &kp F8 &kp F9 &kp F10 &kp HOME
+&none     &none &kp LS(LEFT)  &kp LS(DOWN) &kp LS(RIGHT) &none &kp RPAR &kp F4 &kp F5 &kp F6 &kp F11 &kp END
+&none     &none &none         &none        &none         &none &kp RBRC &kp F1 &kp F2 &kp F3 &kp F12 &none
+                              &none        &none         &none &none    &none  &none  
+            >;
+
+        };
+
+        SYS {
+            bindings = <
+//1        2            3            4            5            6            7     8     9     10    11    12                   
+&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none &none &none &none &none &none                
+&none      &none        &none        &none        &none        &none        &none &none &none &none &none &none                
+&none      &none        &none        &none        &none        &none        &none &none &none &none &none &none 
+                                     &bootloader  &none        &none        &none &none &none  
+            >;
+
+        };
+
     };
 };
+
+
+

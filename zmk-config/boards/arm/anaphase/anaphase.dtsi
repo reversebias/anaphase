@@ -45,7 +45,7 @@
     sck-pin = <8>;
     mosi-pin = <6>;
     cs-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
-    clock-frequency = <1000000>;
+    clock-frequency = <8000000>;
     miso-pull-down;
     // unused pin, but needed by SPI definition
     miso-pin = <11>;
@@ -56,7 +56,7 @@
         label = "DISPLAY";
         data_cmd-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
         reset-gpios = <&gpio0 12 GPIO_ACTIVE_LOW>;
-        spi-max-frequency = <1000000>;
+        spi-max-frequency = <8000000>;
         width = <96>;
         height = <48>;
         segment-offset = <0>;

@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../crides-zmk/app/boards/arm/fissure"
+		}
+	],
+	"settings": {}
+}
