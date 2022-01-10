@@ -79,4 +79,16 @@ endchoice
 
 endif # ZMK_DISPLAY
 
+menuconfig CUSTOM_WIDGET_BATTERY_STATUS
+	bool "custom battery status widget"
+
+menuconfig CUSTOM_WIDGET_OUTPUT_STATUS
+	bool "custom output status widget"
+
+menuconfig CUSTOM_WIDGET_LAYER_STATUS
+	bool "custom layer status widget"
+
+menuconfig CUSTOM_WIDGET_WPM_STATUS
+	bool "custom wpm status widget"
+
 endif # BOARD_ANAPHASE_LEFT || BOARD_ANAPHASE_RIGHT
