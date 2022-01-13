@@ -20,12 +20,17 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
+K_MUTEX_DEFINE(battery_status_mutex);
+
 struct battery_status_state {
     uint8_t level;
     bool usb_present;
-};
+} battery_status_state;
 
 static void set_battery_symbol(lv_obj_t *label, struct battery_status_state state) {
+
+    k_mutex_lock(&battery_status_mutex, K_FOREVER);
+
     char text[8] = "";
 
     uint8_t level = state.level;
@@ -33,10 +38,12 @@ static void set_battery_symbol(lv_obj_t *label, struct battery_status_state stat
     if (state.usb_present) {
         sprintf(text, "CHG:%3d%%", level);
     } else {
-        sprintf(text, "Bat:%3d%%", level);
+        sprintf(text, "BAT:%3d%%", level);
     }
     
     lv_label_set_text(label, text);
+
+    k_mutex_unlock(&battery_status_mutex);
 }
 
 void battery_status_update_cb(struct battery_status_state state) {
@@ -45,10 +52,14 @@ void battery_status_update_cb(struct battery_status_state state) {
 }
 
 static struct battery_status_state battery_status_get_state(const zmk_event_t *eh) {
-    return (struct battery_status_state) {
-        .level = bt_bas_get_battery_level(),
-        .usb_present = zmk_usb_is_powered(),
-    };
+    k_mutex_lock(&battery_status_mutex, K_FOREVER);
+    
+    battery_status_state.level = bt_bas_get_battery_level();
+    battery_status_state.usb_present = zmk_usb_is_powered();
+
+    k_mutex_unlock(&battery_status_mutex);
+
+    return battery_status_state;
 }
 
 ZMK_DISPLAY_WIDGET_LISTENER(widget_battery_status, struct battery_status_state,
