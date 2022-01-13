@@ -45,16 +45,30 @@ config ZMK_BATTERY_NRF_VDDH
     default y
 
 config ZMK_DISPLAY
+	select LVGL_FONT_UNSCII_8
+    select LVGL_USE_LABEL
 
+choice ZMK_DISPLAY_STATUS_SCREEN
+	default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+
+endchoice
+    
 if ZMK_DISPLAY
+
+choice LVGL_THEME_DEFAULT_FONT_NORMAL
+    default LVGL_THEME_DEFAULT_FONT_NORMAL_UNSCII_8
+
+endchoice
+
+choice LVGL_THEME_DEFAULT_FONT_SMALL
+    default LVGL_THEME_DEFAULT_FONT_SMALL_UNSCII_8
+
+endchoice
 
 config SPI
     default y
 
 config SSD1306
-    default y
-
-config SSD1306_REVERSE_MODE
     default y
 
 config LVGL_HOR_RES_MAX
