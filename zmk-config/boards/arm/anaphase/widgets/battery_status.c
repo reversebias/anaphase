@@ -27,15 +27,15 @@ struct battery_status_state {
     bool usb_present;
 } battery_status_state;
 
-static void set_battery_symbol(lv_obj_t *label, struct battery_status_state state) {
+void set_battery_symbol(lv_obj_t *label) {
 
     k_mutex_lock(&battery_status_mutex, K_FOREVER);
 
     char text[8] = "";
 
-    uint8_t level = state.level;
+    uint8_t level = battery_status_state.level;
 
-    if (state.usb_present) {
+    if (battery_status_state.usb_present) {
         sprintf(text, "CHG:%3d%%", level);
     } else {
         sprintf(text, "BAT:%3d%%", level);
@@ -46,12 +46,12 @@ static void set_battery_symbol(lv_obj_t *label, struct battery_status_state stat
     k_mutex_unlock(&battery_status_mutex);
 }
 
-void battery_status_update_cb(struct battery_status_state state) {
+void battery_status_update_cb(struct k_work *work) {
     struct zmk_widget_battery_status *widget;
-    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { set_battery_symbol(widget->obj, state); }
+    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { set_battery_symbol(widget->obj); }
 }
 
-static struct battery_status_state battery_status_get_state(const zmk_event_t *eh) {
+struct battery_status_state battery_status_get_state() {
     k_mutex_lock(&battery_status_mutex, K_FOREVER);
     
     battery_status_state.level = bt_bas_get_battery_level();
@@ -62,23 +62,30 @@ static struct battery_status_state battery_status_get_state(const zmk_event_t *e
     return battery_status_state;
 }
 
-ZMK_DISPLAY_WIDGET_LISTENER(widget_battery_status, struct battery_status_state,
-                            battery_status_update_cb, battery_status_get_state)
-
-ZMK_SUBSCRIPTION(widget_battery_status, zmk_battery_state_changed);
-ZMK_SUBSCRIPTION(widget_battery_status, zmk_usb_conn_state_changed);
-
 int zmk_widget_battery_status_init(struct zmk_widget_battery_status *widget, lv_obj_t *parent) {
     widget->obj = lv_label_create(parent, NULL);
 
     lv_obj_set_size(widget->obj, 64, 10);
-
+    
+    set_battery_symbol(widget->obj);
     sys_slist_append(&widgets, &widget->node);
 
-    widget_battery_status_init();
     return 0;
 }
 
 lv_obj_t *zmk_widget_battery_status_obj(struct zmk_widget_battery_status *widget) {
     return widget->obj;
 }
+
+K_WORK_DEFINE(battery_status_update_work, battery_status_update_cb);
+
+int battery_status_listener(const zmk_event_t *eh) {
+    battery_status_get_state();
+
+    k_work_submit_to_queue(zmk_display_work_q(), &battery_status_update_work);
+    return 0;
+}
+
+ZMK_LISTENER(widget_battery_status, battery_status_listener)
+ZMK_SUBSCRIPTION(widget_battery_status, zmk_battery_state_changed);
+ZMK_SUBSCRIPTION(widget_battery_status, zmk_usb_conn_state_changed);

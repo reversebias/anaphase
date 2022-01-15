@@ -63,5 +63,7 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), NULL, LV_ALIGN_IN_BOTTOM_RIGHT, -12,
                  0);
 #endif
+
+    lv_refr_now(NULL);
     return screen;
 }
