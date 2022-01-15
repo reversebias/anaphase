@@ -86,6 +86,6 @@ int battery_status_listener(const zmk_event_t *eh) {
     return 0;
 }
 
-ZMK_LISTENER(widget_battery_status, battery_status_listener)
+ZMK_LISTENER(widget_battery_status, battery_status_listener);
 ZMK_SUBSCRIPTION(widget_battery_status, zmk_battery_state_changed);
 ZMK_SUBSCRIPTION(widget_battery_status, zmk_usb_conn_state_changed);
