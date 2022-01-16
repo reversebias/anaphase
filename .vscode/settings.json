@@ -4,4 +4,4 @@
         "*.dts": "cpp",
         "battery_status.h": "c"
     }
-}
+} 
