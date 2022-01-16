@@ -82,9 +82,12 @@ K_WORK_DEFINE(layer_status_update_work, layer_status_update_cb);
 int layer_status_listener(const zmk_event_t *eh) {
     layer_status_get_state();
 
+    LOG_DBG("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLAYERSTATUS, work_pending = %i", k_work_pending(&layer_status_update_work));
+    LOG_DBG("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLAYERSTATUS, work submitted");
     k_work_submit_to_queue(zmk_display_work_q(), &layer_status_update_work);
+    LOG_DBG("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLAYERSTATUS, work_pending = %i", k_work_pending(&layer_status_update_work));
     return 0;
 }
 
-ZMK_LISTENER(widget_layer_status, layer_status_listener)
+ZMK_LISTENER(widget_layer_status, layer_status_listener);
 ZMK_SUBSCRIPTION(widget_layer_status, zmk_layer_state_changed);

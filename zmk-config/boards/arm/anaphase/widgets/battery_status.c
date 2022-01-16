@@ -28,6 +28,7 @@ struct battery_status_state {
 } battery_status_state;
 
 void set_battery_symbol(lv_obj_t *label) {
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, _set");
 
     k_mutex_lock(&battery_status_mutex, K_FOREVER);
 
@@ -47,11 +48,13 @@ void set_battery_symbol(lv_obj_t *label) {
 }
 
 void battery_status_update_cb(struct k_work *work) {
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, _cb");
     struct zmk_widget_battery_status *widget;
     SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { set_battery_symbol(widget->obj); }
 }
 
 struct battery_status_state battery_status_get_state() {
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, _get_state");
     k_mutex_lock(&battery_status_mutex, K_FOREVER);
     
     battery_status_state.level = bt_bas_get_battery_level();
@@ -63,6 +66,7 @@ struct battery_status_state battery_status_get_state() {
 }
 
 int zmk_widget_battery_status_init(struct zmk_widget_battery_status *widget, lv_obj_t *parent) {
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, _init");
     widget->obj = lv_label_create(parent, NULL);
 
     lv_obj_set_size(widget->obj, 64, 10);
@@ -80,9 +84,13 @@ lv_obj_t *zmk_widget_battery_status_obj(struct zmk_widget_battery_status *widget
 K_WORK_DEFINE(battery_status_update_work, battery_status_update_cb);
 
 int battery_status_listener(const zmk_event_t *eh) {
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, _listener");
     battery_status_get_state();
 
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work_pending = %i", k_work_pending(&battery_status_update_work));
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work submitted");
     k_work_submit_to_queue(zmk_display_work_q(), &battery_status_update_work);
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work_pending = %i", k_work_pending(&battery_status_update_work));
     return 0;
 }
 
