@@ -85,12 +85,15 @@ K_WORK_DEFINE(battery_status_update_work, battery_status_update_cb);
 
 int battery_status_listener(const zmk_event_t *eh) {
     LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, _listener");
+    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, display_initialized = %i", zmk_display_is_initialized());
+    
     battery_status_get_state();
-
-    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work_pending = %i", k_work_pending(&battery_status_update_work));
-    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work submitted");
-    k_work_submit_to_queue(zmk_display_work_q(), &battery_status_update_work);
-    LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work_pending = %i", k_work_pending(&battery_status_update_work));
+    if (zmk_display_is_initialized()) { 
+        LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work_pending = %i", k_work_pending(&battery_status_update_work));
+        LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work submitted");
+        k_work_submit_to_queue(zmk_display_work_q(), &battery_status_update_work);
+        LOG_DBG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBATTERYSTATUS, work_pending = %i", k_work_pending(&battery_status_update_work));
+    }
     return 0;
 }
 
