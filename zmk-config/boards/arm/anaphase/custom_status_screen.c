@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-//#include <zmk/display/widgets/output_status.h>
+#include "widgets/output_status.h"
 #include "widgets/battery_status.h"
 #include "widgets/layer_status.h"
 #include "widgets/wpm_status.h"
@@ -17,7 +17,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 static struct zmk_widget_battery_status battery_status_widget;
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_WIDGET_OUTPUT_STATUS)
+#if IS_ENABLED(CONFIG_CUSTOM_WIDGET_OUTPUT_STATUS)
 static struct zmk_widget_output_status output_status_widget;
 #endif
 
@@ -47,10 +47,10 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_align(zmk_widget_battery_status_obj(&battery_status_widget), NULL, LV_ALIGN_IN_TOP_LEFT, 32, 21);
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_WIDGET_OUTPUT_STATUS)
+#if IS_ENABLED(CONFIG_CUSTOM_WIDGET_OUTPUT_STATUS)
     zmk_widget_output_status_init(&output_status_widget, screen);
-    lv_obj_align(zmk_widget_output_status_obj(&output_status_widget), NULL, LV_ALIGN_IN_TOP_LEFT, 0,
-                 0);
+    lv_obj_align(zmk_widget_output_name_obj(&output_status_widget), NULL, LV_ALIGN_IN_TOP_LEFT, 32, 1);
+    lv_obj_align(zmk_widget_output_status_obj(&output_status_widget), NULL, LV_ALIGN_IN_TOP_LEFT, 32, 11);
 #endif
 
 #if IS_ENABLED(CONFIG_CUSTOM_WIDGET_LAYER_STATUS)
