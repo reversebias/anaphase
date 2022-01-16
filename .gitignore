@@ -1,2 +1,4 @@
 
 hardware/kicad_5.99/.xdp-anaphase.pro-tgFd8n
+zmk-config/boards/arm/anaphase/widgets/temp
+.vscode/settings.json

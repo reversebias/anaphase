@@ -37,7 +37,7 @@
         compatible = "zmk,keymap";
 
         BASE {
-            label = "Base";
+            label = "BASE";
             bindings = <
 //  1                  2         3       4        5     6        7         8         9         10      11    12                   
 &mt LSHFT ESC      &kp Q     &kp P   &kp Y    &kp C &kp B    &kp V     &kp M     &kp U     &kp Z   &kp L  &kp DEL 
@@ -49,7 +49,7 @@
         };
 
         SHIFT {
-            label = "Shift";
+            label = "SHIFT";
             bindings = <
 // 1               2             3           4            5         6            7            8             9             10          11         12                   
 &kp LS(ESC) &kp LS(Q)     &kp LS(P)   &kp LS(Y)    &kp LS(C) &kp LS(B)    &kp LS(V)    &kp LS(M)     &kp LS(U)     &kp LS(Z)   &kp LS(L)  &kp LS(DEL) 
@@ -61,7 +61,7 @@
         };
 
         FUNC {
-            label = "Func";
+            label = "FUNC";
             bindings = <
 //  1         2        3         4        5         6        7          8      9      10     11        12                   
 &kp TILDE &kp AMPS &kp PRCNT &kp UP   &kp CARET &kp PIPE &kp LBKT   &kp N7 &kp N8 &kp N9 &kp MINUS &kp PG_UP 
@@ -73,7 +73,7 @@
         };
 
         FNSHFT {
-            label = "FnSh";
+            label = "FUNCSHFT";
             bindings = <
 //  1     2         3             4            5         6         7        8      9      10     11      12                   
 &kp GRAVE &none &kp PSCRN     &kp LS(UP)   &none         &none &kp RBKT &kp F7 &kp F8 &kp F9 &kp F10 &kp HOME

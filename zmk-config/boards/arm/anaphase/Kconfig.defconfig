@@ -45,16 +45,31 @@ config ZMK_BATTERY_NRF_VDDH
     default y
 
 config ZMK_DISPLAY
+	select LVGL_FONT_UNSCII_8
+    select LVGL_USE_LABEL
+    select ZMK_WPM
 
+choice ZMK_DISPLAY_STATUS_SCREEN
+	default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+
+endchoice
+    
 if ZMK_DISPLAY
+
+choice LVGL_THEME_DEFAULT_FONT_NORMAL
+    default LVGL_THEME_DEFAULT_FONT_NORMAL_UNSCII_8
+
+endchoice
+
+choice LVGL_THEME_DEFAULT_FONT_SMALL
+    default LVGL_THEME_DEFAULT_FONT_SMALL_UNSCII_8
+
+endchoice
 
 config SPI
     default y
 
 config SSD1306
-    default y
-
-config SSD1306_REVERSE_MODE
     default y
 
 config LVGL_HOR_RES_MAX
@@ -78,5 +93,17 @@ choice LVGL_COLOR_DEPTH
 endchoice
 
 endif # ZMK_DISPLAY
+
+menuconfig CUSTOM_WIDGET_BATTERY_STATUS
+	bool "custom battery status widget"
+
+menuconfig CUSTOM_WIDGET_OUTPUT_STATUS
+	bool "custom output status widget"
+
+menuconfig CUSTOM_WIDGET_LAYER_STATUS
+	bool "custom layer status widget"
+
+menuconfig CUSTOM_WIDGET_WPM_STATUS
+	bool "custom wpm status widget"
 
 endif # BOARD_ANAPHASE_LEFT || BOARD_ANAPHASE_RIGHT
