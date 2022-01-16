@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "*.keymap": "cpp",
-        "*.dts": "cpp",
-        "battery_status.h": "c"
-    }
-} 
